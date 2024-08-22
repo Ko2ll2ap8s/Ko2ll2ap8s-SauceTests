@@ -29,15 +29,15 @@ namespace SauceDemoTests
             IWebDriver driver = new ChromeDriver();
             driver.Navigate().GoToUrl("https://www.saucedemo.com/");
 
-            // Авторизация
+            // РђРІС‚РѕСЂРёР·Р°С†РёСЏ
             driver.FindElement(By.Id("user-name")).SendKeys("standard_user");
             driver.FindElement(By.Id("password")).SendKeys("secret_sauce");
             driver.FindElement(By.Id("login-button")).Click();
 
-            // Добавление товара в корзину
+            // Р”РѕР±Р°РІР»РµРЅРёРµ С‚РѕРІР°СЂР° РІ РєРѕСЂР·РёРЅСѓ
             driver.FindElement(By.ClassName("inventory_item")).FindElement(By.ClassName("btn_inventory")).Click();
 
-            // Проверка, что товар добавлен в корзину
+            // РџСЂРѕРІРµСЂРєР°, С‡С‚Рѕ С‚РѕРІР°СЂ РґРѕР±Р°РІР»РµРЅ РІ РєРѕСЂР·РёРЅСѓ
             Assert.IsTrue(driver.FindElement(By.ClassName("shopping_cart_badge")).Text.Equals("1"));
 
             driver.Quit();
@@ -49,34 +49,34 @@ namespace SauceDemoTests
             IWebDriver driver = new ChromeDriver();
             driver.Navigate().GoToUrl("https://www.saucedemo.com/");
 
-            // Авторизация
+            // РђРІС‚РѕСЂРёР·Р°С†РёСЏ
             driver.FindElement(By.Id("user-name")).SendKeys("standard_user");
             driver.FindElement(By.Id("password")).SendKeys("secret_sauce");
             driver.FindElement(By.Id("login-button")).Click();
 
-            // Добавление товара в корзину
+            // Р”РѕР±Р°РІР»РµРЅРёРµ С‚РѕРІР°СЂР° РІ РєРѕСЂР·РёРЅСѓ
             driver.FindElement(By.ClassName("inventory_item")).FindElement(By.ClassName("btn_inventory")).Click();
 
-            // Переход в корзину и оформление заказа
+            // Р’РІРѕРґ РґР°РЅРЅС‹С… Рё Р·Р°РІРµСЂС€РµРЅРёРµ Р·Р°РєР°Р·Р°
             driver.FindElement(By.ClassName("shopping_cart_link")).Click();
             driver.FindElement(By.Id("checkout")).Click();
 
-            // Ввод данных и завершение заказа
+            // Г‚ГўГ®Г¤ Г¤Г Г­Г­Г»Гµ ГЁ Г§Г ГўГҐГ°ГёГҐГ­ГЁГҐ Г§Г ГЄГ Г§Г 
             driver.FindElement(By.Id("first-name")).SendKeys("John");
             driver.FindElement(By.Id("last-name")).SendKeys("Doe");
             driver.FindElement(By.Id("postal-code")).SendKeys("12345");
             driver.FindElement(By.Id("continue")).Click();
             driver.FindElement(By.Id("finish")).Click();
 
-            // Явное ожидание появления элемента с текстом благодарности
+            // РЇРІРЅРѕРµ РѕР¶РёРґР°РЅРёРµ РїРѕСЏРІР»РµРЅРёСЏ СЌР»РµРјРµРЅС‚Р° СЃ С‚РµРєСЃС‚РѕРј Р±Р»Р°РіРѕРґР°СЂРЅРѕСЃС‚Рё
             WebDriverWait wait = new(driver, TimeSpan.FromSeconds(10));
             IWebElement completeHeader = wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible(By.ClassName("complete-header")));
 
-            // Диагностика текста
+            // Р”РёР°РіРЅРѕСЃС‚РёРєР° С‚РµРєСЃС‚Р°
             string completeHeaderText = completeHeader.Text;
             Console.WriteLine("Actual complete-header text: " + completeHeaderText);
 
-            // Проверка текста на странице, игнорируя регистр
+            // РџСЂРѕРІРµСЂРєР° С‚РµРєСЃС‚Р° РЅР° СЃС‚СЂР°РЅРёС†Рµ
             Assert.IsTrue(completeHeaderText.Equals("Thank you for your order!"));
 
             driver.Quit();
